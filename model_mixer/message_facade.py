@@ -11,13 +11,12 @@ class MessageFacade:
         self.model = model
         self.functions = functions if functions is not None else []
 
-    def send_message(self, message):
+    def send_message(self, message) -> str:
         if not isinstance(message, str) or not message:
             raise ValueError("Message must be a non-empty string")
 
         if self.provider == "openai":
             openai = OpenAIClient(openai_api_key)
-            # Assume send_message is a method within OpenAIClient that accepts model and message
-            openai.send_message(self.model, message)
+            return openai.send_message(message, self.model)
         else:
             print(f"Sending message: {message}")
